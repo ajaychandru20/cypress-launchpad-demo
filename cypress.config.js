@@ -3,6 +3,7 @@ const cucumberPlugin = require('cypress-cucumber-preprocessor').default;
 require('dotenv').config();
 
 module.exports = defineConfig({
+  projectId: "amcvwv",
   e2e: {
     baseUrl: process.env.BASE_URL || 'https://www.saucedemo.com',
     specPattern: 'cypress/e2e/features/**/*.feature',

@@ -230,6 +230,7 @@ var HTML = '<!DOCTYPE html>\n' +
   '<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>\n' +
   '<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>\n' +
   '<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>\n' +
+  '<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>\n' +
   '</head>\n' +
   '<body style="margin:0;background:#0A0A0B">\n' +
   '<div id="root"></div>\n' +
@@ -1280,6 +1281,44 @@ http.createServer(function (req, res) {
     } catch (e) {
       res.writeHead(500);
       return res.end('Error serving screenshot: ' + e.message);
+    }
+  }
+
+  // GET /api/analytics — aggregate pass/fail/total across all reports for trend charts
+  if (pathname === '/api/analytics' && req.method === 'GET') {
+    try {
+      var reports = docker.listReports();
+      // Parse each report folder name: YYYY-MM-DD_HH-MM_env_tag[_mode]
+      var analytics = reports.map(function (r) {
+        var failures = { totalScenarios: 0, passedScenarios: 0, failedScenarios: 0 };
+        try { failures = docker.getFailures(r.name); } catch (e) { /* skip */ }
+        // Parse date from folder name: first 16 chars = YYYY-MM-DD_HH-MM
+        var datePart = r.name.substring(0, 16);  // e.g. "2026-04-23_14-30"
+        var parts = r.name.split('_');
+        var env = parts[2] || 'unknown';
+        var tag = parts[3] || 'custom';
+        var ts = null;
+        try {
+          var d = datePart.replace('_', 'T').replace(/-(\d{2})$/, ':$1');
+          ts = new Date(d).toISOString();
+        } catch (e) { ts = null; }
+        return {
+          name: r.name,
+          date: datePart,
+          timestamp: ts,
+          env: env,
+          tag: tag,
+          total: failures.totalScenarios,
+          passed: failures.passedScenarios,
+          failed: failures.failedScenarios,
+          passRate: failures.totalScenarios > 0
+            ? Math.round((failures.passedScenarios / failures.totalScenarios) * 100)
+            : null,
+        };
+      }).filter(function (r) { return r.total > 0; });
+      return sendJson(res, { ok: true, analytics: analytics });
+    } catch (e) {
+      return sendJson(res, { ok: false, error: e.message }, 500);
     }
   }
 

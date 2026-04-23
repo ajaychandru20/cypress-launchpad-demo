@@ -212,6 +212,7 @@ function TestDataManager() {
   // -- Reports state (accessible from anywhere via drawer) --
   const [pastReports, setPastReports] = React.useState([]);
   const [showReports, setShowReports] = React.useState(false);
+  const [drawerTab, setDrawerTab] = React.useState('reports');
   const reportsRefreshRef = React.useRef(null);
 
   // -- Browser conflict modal state (shown when Chrome is running on macOS during debug) --
@@ -817,18 +818,18 @@ function TestDataManager() {
         <div style={{ position: 'fixed', inset: 0, zIndex: 500, display: 'flex' }}>
           {/* Backdrop */}
           <div
-            onClick={function () { setShowReports(false); }}
+            onClick={function () { setShowReports(false); setDrawerTab('reports'); }}
             style={{ flex: 1, background: 'rgba(11,40,56,0.55)', backdropFilter: 'blur(2px)' }}
           />
-          {/* Drawer panel */}
+          {/* Drawer panel — widened slightly for charts */}
           <div style={{
-            width: '520px', background: '#12141A', display: 'flex', flexDirection: 'column',
+            width: '560px', background: '#12141A', display: 'flex', flexDirection: 'column',
             boxShadow: '-4px 0 48px rgba(0,0,0,0.6)', overflow: 'hidden',
           }}>
             {/* Drawer header */}
             <div style={{
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              padding: '16px 20px', background: 'rgba(10,11,15,0.9)', borderBottom: '1px solid #1E2030',
+              padding: '14px 20px', background: 'rgba(10,11,15,0.9)', borderBottom: '1px solid #1E2030',
             }}>
               <span style={{ color: '#E8EBF3', fontWeight: '700', fontSize: '14px', letterSpacing: '-0.2px' }}>
                 &#x2691; Test Reports
@@ -839,21 +840,48 @@ function TestDataManager() {
                   style={{ background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)', color: '#818CF8', borderRadius: '6px', padding: '5px 12px', cursor: 'pointer', fontSize: '11px', fontWeight: '600' }}
                 >&#x21BB; Refresh</button>
                 <button
-                  onClick={function () { setShowReports(false); }}
+                  onClick={function () { setShowReports(false); setDrawerTab('reports'); }}
                   style={{ background: 'transparent', border: 'none', color: '#E8EBF3', cursor: 'pointer', fontSize: '18px', lineHeight: 1, padding: '2px 4px', opacity: 0.7 }}
                 >&#x2715;</button>
               </div>
             </div>
+            {/* Tab bar */}
+            <div style={{ display: 'flex', borderBottom: '1px solid #1E2030', background: '#0A0B0F', flexShrink: 0 }}>
+              {[
+                { id: 'reports', label: '&#x1F4C4; Reports', icon: '' },
+                { id: 'analytics', label: '&#x1F4CA; Analytics', icon: '' },
+              ].map(function (tab) {
+                var isActive = drawerTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={function () { setDrawerTab(tab.id); }}
+                    dangerouslySetInnerHTML={{ __html: tab.label }}
+                    style={{
+                      flex: 1, padding: '10px', fontSize: '12px', fontWeight: isActive ? '700' : '500',
+                      color: isActive ? '#818CF8' : '#4A506A',
+                      background: 'none', border: 'none',
+                      borderBottom: isActive ? '2px solid #6366F1' : '2px solid transparent',
+                      cursor: 'pointer', transition: 'all 0.15s',
+                    }}
+                  />
+                );
+              })}
+            </div>
             {/* Drawer body — scrollable */}
             <div style={{ flex: 1, overflowY: 'auto', padding: '20px', background: '#0E0F14' }}>
-              <ReportViewer
-                pastReports={pastReports}
-                runReportDir={runReportDir}
-                loadReports={loadReports}
-                colors={C}
-              />
+              {drawerTab === 'analytics' ? (
+                <AnalyticsDashboard colors={C} />
+              ) : (
+                <ReportViewer
+                  pastReports={pastReports}
+                  runReportDir={runReportDir}
+                  loadReports={loadReports}
+                  colors={C}
+                />
+              )}
             </div>
-            {/* Drawer footer — auto-refresh note */}
+            {/* Drawer footer */}
             <div style={{ padding: '8px 20px', borderTop: '1px solid #1E2030', fontSize: '11px', color: '#4A506A', textAlign: 'center', background: '#0A0B0F' }}>
               Auto-refreshes every 30s &mdash; last fetched on open
             </div>
@@ -3148,6 +3176,187 @@ function RunLogBody({ lines, logSearch, colors }) {
             )
           );
         })
+  );
+}
+
+// ============================================================================
+//  ANALYTICS DASHBOARD
+// ============================================================================
+
+function AnalyticsDashboard({ colors }) {
+  const [analytics, setAnalytics] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState(null);
+  const chartRef = React.useRef(null);
+  const chartInstance = React.useRef(null);
+
+  React.useEffect(function () {
+    fetch('/api/analytics')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.ok) {
+          setAnalytics(data.analytics.reverse()); // Chronological for charts
+        } else {
+          setError(data.error);
+        }
+        setLoading(false);
+      })
+      .catch(function (e) {
+        setError(e.message);
+        setLoading(false);
+      });
+  }, []);
+
+  React.useEffect(function () {
+    if (!analytics || analytics.length === 0 || !chartRef.current) return;
+
+    if (chartInstance.current) {
+      chartInstance.current.destroy();
+    }
+
+    var labels = analytics.map(function(a) { return a.date.replace(/_/g, ' '); });
+    var passed = analytics.map(function(a) { return a.passed; });
+    var failed = analytics.map(function(a) { return a.failed; });
+
+    var ctx = chartRef.current.getContext('2d');
+    chartInstance.current = new window.Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Passed',
+            data: passed,
+            backgroundColor: 'rgba(16, 185, 129, 0.8)',
+            borderColor: '#10B981',
+            borderWidth: 1,
+            borderRadius: 4,
+          },
+          {
+            label: 'Failed',
+            data: failed,
+            backgroundColor: 'rgba(239, 68, 68, 0.8)',
+            borderColor: '#EF4444',
+            borderWidth: 1,
+            borderRadius: 4,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: { color: '#E8EBF3' }
+          },
+          tooltip: {
+            mode: 'index',
+            intersect: false,
+            backgroundColor: 'rgba(18,20,26,0.9)',
+            titleColor: '#818CF8',
+            bodyColor: '#E8EBF3',
+            borderColor: '#353849',
+            borderWidth: 1,
+          }
+        },
+        scales: {
+          x: {
+            stacked: true,
+            ticks: { color: '#7B8299', maxRotation: 45, minRotation: 45, font: { size: 10 } },
+            grid: { color: '#1E2030' }
+          },
+          y: {
+            stacked: true,
+            ticks: { color: '#7B8299', stepSize: 1 },
+            grid: { color: '#1E2030' },
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    return function() {
+      if (chartInstance.current) {
+        chartInstance.current.destroy();
+      }
+    };
+  }, [analytics]);
+
+  if (loading) return React.createElement('div', { style: { textAlign: 'center', padding: '40px', color: colors.muted } }, 'Loading analytics...');
+  if (error) return React.createElement('div', { style: { textAlign: 'center', padding: '40px', color: '#EF4444' } }, 'Error loading analytics: ' + error);
+  if (!analytics || analytics.length === 0) {
+    return React.createElement('div', { style: { textAlign: 'center', padding: '40px', color: colors.muted } },
+      React.createElement('div', { style: { fontSize: '40px', marginBottom: '12px', opacity: 0.3 } }, '\uD83D\uDCCA'),
+      React.createElement('p', { style: { fontSize: '13px' } }, 'No run data available for analytics yet.')
+    );
+  }
+
+  // Calculate summary stats
+  var totalRuns = analytics.length;
+  var avgPassRate = Math.round(analytics.reduce(function(acc, a) { return acc + a.passRate; }, 0) / totalRuns);
+  
+  // Find flakiest env/tag combinations (basic heuristic: low pass rate across multiple runs)
+  var envStats = {};
+  analytics.forEach(function(a) {
+    var key = a.env + ' @' + a.tag;
+    if (!envStats[key]) envStats[key] = { runs: 0, passed: 0, total: 0 };
+    envStats[key].runs++;
+    envStats[key].passed += a.passed;
+    envStats[key].total += a.total;
+  });
+  
+  var flakyCombos = Object.keys(envStats).map(function(k) {
+    var s = envStats[k];
+    return { name: k, runs: s.runs, rate: Math.round((s.passed / s.total) * 100) };
+  }).filter(function(s) { return s.runs > 1 && s.rate < 100; }).sort(function(a, b) { return a.rate - b.rate; }).slice(0, 3);
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      
+      {/* Summary Cards */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+        <div style={{ background: '#1A1D26', border: '1px solid #2A2D3A', borderRadius: '8px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+          <div style={{ fontSize: '11px', color: '#7B8299', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: '600' }}>Total Runs Analyzed</div>
+          <div style={{ fontSize: '24px', color: '#E8EBF3', fontWeight: '700' }}>{totalRuns}</div>
+        </div>
+        <div style={{ background: '#1A1D26', border: '1px solid #2A2D3A', borderRadius: '8px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+          <div style={{ fontSize: '11px', color: '#7B8299', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: '600' }}>Average Pass Rate</div>
+          <div style={{ fontSize: '24px', color: avgPassRate >= 90 ? '#10B981' : avgPassRate >= 70 ? '#F59E0B' : '#EF4444', fontWeight: '700' }}>{avgPassRate}%</div>
+        </div>
+      </div>
+
+      {/* Chart */}
+      <div style={{ background: '#1A1D26', border: '1px solid #2A2D3A', borderRadius: '8px', padding: '16px' }}>
+        <div style={{ fontSize: '13px', color: '#E8EBF3', fontWeight: '600', marginBottom: '16px' }}>Pass/Fail Trend</div>
+        <div style={{ height: '250px', position: 'relative' }}>
+          <canvas ref={chartRef}></canvas>
+        </div>
+      </div>
+
+      {/* Stability Insights */}
+      <div style={{ background: '#1A1D26', border: '1px solid #2A2D3A', borderRadius: '8px', padding: '16px' }}>
+        <div style={{ fontSize: '13px', color: '#E8EBF3', fontWeight: '600', marginBottom: '12px' }}>Stability Insights</div>
+        {flakyCombos.length > 0 ? (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {flakyCombos.map(function(c, i) {
+              return (
+                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#12141A', padding: '8px 12px', borderRadius: '6px', border: '1px solid #1E2030' }}>
+                  <span style={{ fontSize: '12px', color: '#D0DBE8', fontFamily: 'monospace' }}>{c.name}</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '11px', color: '#7B8299' }}>{c.runs} runs</span>
+                    <span style={{ fontSize: '12px', fontWeight: '600', color: c.rate >= 90 ? '#10B981' : c.rate >= 70 ? '#F59E0B' : '#EF4444' }}>{c.rate}%</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div style={{ fontSize: '12px', color: '#7B8299' }}>No recurring stability issues detected across environments and tags.</div>
+        )}
+      </div>
+
+    </div>
   );
 }
 

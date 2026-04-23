@@ -8,6 +8,7 @@
     "cypress-cucumber-preprocessor": "^4.3.1",
     "cypress-dotenv": "^3.0.1",
     "cypress-multi-reporters": "^2.0.5",
+    "cypress-parallel": "^0.15.0",
     "date-fns": "^3.6.0",
     "dayjs": "^1.11.13",
     "dotenv": "^16.3.1",
