@@ -224,11 +224,14 @@ var HTML = '<!DOCTYPE html>\n' +
   '<meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
   '<title>Cypress Launchpad | Demo</title>\n' +
   '<link rel="icon" type="image/x-icon" href="/favicon.ico">\n' +
+  '<link rel="preconnect" href="https://fonts.googleapis.com">\n' +
+  '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n' +
+  '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">\n' +
   '<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>\n' +
   '<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>\n' +
   '<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>\n' +
   '</head>\n' +
-  '<body style="margin:0;background:#F7F3EE">\n' +
+  '<body style="margin:0;background:#0A0A0B">\n' +
   '<div id="root"></div>\n' +
   '<script type="text/babel" src="/app.js" data-presets="react"></script>\n' +
   '</body>\n' +
@@ -657,6 +660,19 @@ http.createServer(function (req, res) {
     } catch (e) {
       res.writeHead(404);
       return res.end('favicon not found');
+    }
+  }
+
+  // GET /logo.png
+  if (pathname === '/logo.png' && req.method === 'GET') {
+    var logoPath = path.join(__dirname, 'logo.png');
+    try {
+      var logoData = fs.readFileSync(logoPath);
+      res.writeHead(200, { 'Content-Type': 'image/png', 'Cache-Control': 'public, max-age=86400' });
+      return res.end(logoData);
+    } catch (e) {
+      res.writeHead(404);
+      return res.end('logo not found');
     }
   }
 

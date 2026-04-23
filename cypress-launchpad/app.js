@@ -2,8 +2,8 @@
 // React and ReactDOM are globals from CDN
 
 function Spinner({ dark }) {
-  var stroke = dark ? '#0E7C6B' : 'white';
-  var trackStroke = dark ? 'rgba(14,124,107,0.3)' : 'rgba(255,255,255,0.3)';
+  var stroke = dark ? '#6366F1' : 'white';
+  var trackStroke = dark ? 'rgba(99,102,241,0.2)' : 'rgba(255,255,255,0.3)';
   return React.createElement(
     'svg',
     { className: 'spin-icon', width: '13', height: '13', viewBox: '0 0 24 24', fill: 'none' },
@@ -17,10 +17,10 @@ function Spinner({ dark }) {
 // ============================================================================
 
 const CARDS = [
-  { id: 'users', title: 'User Accounts', accent: '#0E7C6B', path: ['users'], fields: [{ label: 'Admin User', key: 'adminUser' }, { label: 'Standard User', key: 'standardUser' }, { label: 'Guest User', key: 'guestUser' }, { label: 'Locked User', key: 'lockedUser' }] },
-  { id: 'products', title: 'Products', accent: '#2D6A8A', path: ['products'], fields: [{ label: 'Featured Product', key: 'featuredProduct' }, { label: 'Sale Product', key: 'saleProduct' }, { label: 'New Arrival', key: 'newArrival' }, { label: 'Budget Item', key: 'budgetItem' }] },
-  { id: 'checkout', title: 'Checkout Data', accent: '#1B8FB0', path: ['checkout'], fields: [{ label: 'First Name', key: 'firstName' }, { label: 'Last Name', key: 'lastName' }, { label: 'Postal Code', key: 'postalCode' }] },
-  { id: 'config', title: 'App Config', accent: '#D4764E', path: ['config'], fields: [{ label: 'Base URL', key: 'baseUrl' }, { label: 'API Key', key: 'apiKey' }] },
+  { id: 'users', title: 'User Accounts', accent: '#6366F1', path: ['users'], fields: [{ label: 'Admin User', key: 'adminUser' }, { label: 'Standard User', key: 'standardUser' }, { label: 'Guest User', key: 'guestUser' }, { label: 'Locked User', key: 'lockedUser' }] },
+  { id: 'products', title: 'Products', accent: '#06B6D4', path: ['products'], fields: [{ label: 'Featured Product', key: 'featuredProduct' }, { label: 'Sale Product', key: 'saleProduct' }, { label: 'New Arrival', key: 'newArrival' }, { label: 'Budget Item', key: 'budgetItem' }] },
+  { id: 'checkout', title: 'Checkout Data', accent: '#8B5CF6', path: ['checkout'], fields: [{ label: 'First Name', key: 'firstName' }, { label: 'Last Name', key: 'lastName' }, { label: 'Postal Code', key: 'postalCode' }] },
+  { id: 'config', title: 'App Config', accent: '#F472B6', path: ['config'], fields: [{ label: 'Base URL', key: 'baseUrl' }, { label: 'API Key', key: 'apiKey' }] },
 ];
 
 var CART_BIZ_MAP = {};
@@ -688,77 +688,80 @@ function TestDataManager() {
 
   // -- Styles --
   const C = {
-    bg: '#F7F3EE',
-    surface: '#FFFFFF',
-    inputBg: '#F2EDE6',
-    border: '#E2DCD3',
-    inputBorder: '#D4CCC2',
-    text: '#1B2838',
-    muted: '#6B7B8D',
-    subtle: '#A0ADB8',
-    accent: '#0E7C6B',
-    accentHov: '#0C9582',
+    bg: '#0A0B0F',
+    surface: '#12141A',
+    inputBg: '#1A1D26',
+    border: '#2A2D3A',
+    inputBorder: '#353849',
+    text: '#E8EBF3',
+    muted: '#7B8299',
+    subtle: '#4A506A',
+    accent: '#6366F1',
+    accentHov: '#818CF8',
+    accentAlt: '#06B6D4',
   };
 
   const alertStyles = {
-    ok: { background: '#ECFDF5', border: '1px solid #A7F3D0', color: '#065F46' },
-    info: { background: '#EFF6FF', border: '1px solid #BFDBFE', color: '#1E40AF' },
-    err: { background: '#FEF2F2', border: '1px solid #FECACA', color: '#991B1B' },
+    ok: { background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)', color: '#34D399' },
+    info: { background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.3)', color: '#818CF8' },
+    err: { background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', color: '#FCA5A5' },
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: C.bg, color: C.text, fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: C.bg, color: C.text, fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
       <style>{`
         @keyframes ping { 75%, 100% { transform: scale(2); opacity: 0; } }
         @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes glow-pulse { 0%, 100% { box-shadow: 0 0 12px rgba(99,102,241,0.3); } 50% { box-shadow: 0 0 24px rgba(99,102,241,0.6); } }
         .ping-dot { animation: ping 1.5s cubic-bezier(0,0,0.2,1) infinite; }
         .spin-icon { animation: spin 0.7s linear infinite; }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #F7F3EE; }
-        ::-webkit-scrollbar-thumb { background: #D4CCC2; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #B8B0A6; }
-        select option { background: #FFFFFF; color: #1B2838; }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #0A0B0F; }
+        ::-webkit-scrollbar-thumb { background: #2A2D3A; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6366F1; }
+        select option { background: #12141A; color: #E8EBF3; }
         * { box-sizing: border-box; }
-        body { margin: 0; background: #F7F3EE; }
-        ::selection { background: rgba(14,124,107,0.2); }
-        input::placeholder { color: #A0ADB8 !important; }
+        body { margin: 0; background: #0A0B0F; }
+        ::selection { background: rgba(99,102,241,0.35); color: #fff; }
+        input::placeholder { color: #4A506A !important; }
+        input, select, textarea { color-scheme: dark; }
       `}</style>
 
       {/* Header */}
-      <header style={{ position: 'sticky', top: 0, zIndex: 100, height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 24px', backdropFilter: 'blur(16px)', backgroundColor: '#0B3D3E', borderBottom: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 2px 12px rgba(11,61,62,0.15)' }}>
+      <header style={{ position: 'sticky', top: 0, zIndex: 100, height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 24px', backdropFilter: 'blur(20px)', backgroundColor: 'rgba(10,11,15,0.85)', borderBottom: '1px solid #1E2030', boxShadow: '0 1px 0 rgba(255,255,255,0.04), 0 4px 24px rgba(0,0,0,0.5)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <img src="/favicon.ico" alt="R" style={{ width: '34px', height: '34px', borderRadius: '8px', flexShrink: 0 }} />
-          <span data-tour="logo" style={{ fontSize: '15px', fontWeight: '600', color: '#F0EDE8', letterSpacing: '-0.2px' }}>Cypress Launchpad</span>
+          <img src="/logo.png" alt="Launchpad" style={{ width: '32px', height: '32px', borderRadius: '8px', flexShrink: 0 }} />
+          <span data-tour="logo" style={{ fontSize: '15px', fontWeight: '700', background: 'linear-gradient(135deg, #818CF8, #06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', letterSpacing: '-0.3px' }}>Cypress Launchpad</span>
           <button
             data-tour="tour-btn"
             onClick={function () { setTourActive(true); }}
-            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '999px', padding: '4px 10px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', color: '#7DD8C8', fontSize: '10px', fontWeight: '600' }}
+            style={{ background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.3)', borderRadius: '999px', padding: '4px 12px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', color: '#818CF8', fontSize: '10px', fontWeight: '600', transition: 'all 0.2s' }}
           >&#x2753; Tour</button>
         </div>
 
         {/* Breadcrumb pill */}
-        <div data-tour="env-pill" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '999px', padding: '6px 16px', display: 'flex', alignItems: 'center', gap: '8px', fontFamily: 'monospace', fontSize: '12px' }}>
-          <span style={{ color: 'rgba(255,255,255,0.5)' }}>env/</span>
-          <span style={{ color: selectedEnv ? '#7DD8C8' : 'rgba(255,255,255,0.3)' }}>{selectedEnv || 'none'}</span>
+        <div data-tour="env-pill" style={{ background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.2)', borderRadius: '999px', padding: '6px 16px', display: 'flex', alignItems: 'center', gap: '8px', fontFamily: 'monospace', fontSize: '12px' }}>
+          <span style={{ color: '#4A506A' }}>env/</span>
+          <span style={{ color: selectedEnv ? '#06B6D4' : '#4A506A' }}>{selectedEnv || 'none'}</span>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           {/* CYPRESS badge */}
-          <div style={{ background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)', borderRadius: '999px', padding: '5px 12px', display: 'flex', alignItems: 'center', gap: '7px' }}>
+          <div style={{ background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.25)', borderRadius: '999px', padding: '5px 12px', display: 'flex', alignItems: 'center', gap: '7px' }}>
             <span style={{ position: 'relative', display: 'inline-flex', width: '8px', height: '8px' }}>
-              <span className="ping-dot" style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: '#10B981', opacity: 0.75 }}></span>
-              <span style={{ position: 'relative', borderRadius: '50%', background: '#10B981', width: '8px', height: '8px' }}></span>
+              <span className="ping-dot" style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: '#06B6D4', opacity: 0.75 }}></span>
+              <span style={{ position: 'relative', borderRadius: '50%', background: '#06B6D4', width: '8px', height: '8px' }}></span>
             </span>
-            <span style={{ color: '#6EE7B7', fontSize: '10px', fontWeight: '700', letterSpacing: '0.15em' }}>CYPRESS</span>
+            <span style={{ color: '#06B6D4', fontSize: '10px', fontWeight: '700', letterSpacing: '0.15em' }}>CYPRESS</span>
           </div>
           {/* Reports drawer toggle */}
           <button
             onClick={function () { setShowReports(true); }}
-            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '999px', padding: '5px 12px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px', color: '#F0EDE8', fontSize: '10px', fontWeight: '700', letterSpacing: '0.1em' }}
+            style={{ background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.25)', borderRadius: '999px', padding: '5px 12px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px', color: '#818CF8', fontSize: '10px', fontWeight: '700', letterSpacing: '0.1em' }}
           >
             &#x2691; REPORTS
             {pastReports.length > 0 && (
-              <span style={{ background: '#0E7C6B', color: 'white', borderRadius: '999px', padding: '1px 6px', fontSize: '9px', fontWeight: '700' }}>{pastReports.length}</span>
+              <span style={{ background: '#6366F1', color: 'white', borderRadius: '999px', padding: '1px 6px', fontSize: '9px', fontWeight: '700' }}>{pastReports.length}</span>
             )}
           </button>
           {/* Debug mode — runs cypress open with no --browser; Cypress shows its own picker */}
@@ -794,16 +797,16 @@ function TestDataManager() {
               if (confirm('Shut down Cypress Launchpad?')) {
                 fetch('/api/shutdown', { method: 'POST' }).catch(function () {});
                 document.title = 'Launchpad - Stopped';
-                document.body.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#F7F3EE;color:#1B2838;font-family:system-ui,sans-serif;text-align:center">' +
+                document.body.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#0A0B0F;color:#E8EBF3;font-family:Inter,system-ui,sans-serif;text-align:center">' +
                   '<div style="font-size:48px;margin-bottom:16px">&#x23FB;</div>' +
                   '<h2 style="margin:0 0 8px;font-size:20px;font-weight:600">Cypress Launchpad Stopped</h2>' +
-                  '<p style="color:#6B7B8D;font-size:13px;margin:0 0 24px">Server on port 4500 has been shut down.</p>' +
-                  '<p style="color:#A0ADB8;font-size:12px">Run <code style="background:#E2DCD3;padding:3px 8px;border-radius:4px;color:#065F46">npm run launch</code> to start again.</p>' +
+                  '<p style="color:#7B8299;font-size:13px;margin:0 0 24px">Server on port 4500 has been shut down.</p>' +
+                  '<p style="color:#4A506A;font-size:12px">Run <code style="background:#1A1D26;padding:3px 8px;border-radius:4px;color:#818CF8">npm run launch</code> to start again.</p>' +
                   '</div>';
               }
             }}
             title="Shut down server (port 4500)"
-            style={{ background: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: '999px', padding: '5px 10px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px', color: '#FCA5A5', fontSize: '10px', fontWeight: '700', letterSpacing: '0.1em' }}
+            style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.25)', borderRadius: '999px', padding: '5px 10px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px', color: '#FCA5A5', fontSize: '10px', fontWeight: '700', letterSpacing: '0.1em' }}
           >&#x23FB; KILL</button>
         </div>
       </header>
@@ -819,30 +822,30 @@ function TestDataManager() {
           />
           {/* Drawer panel */}
           <div style={{
-            width: '520px', background: '#F7F3EE', display: 'flex', flexDirection: 'column',
-            boxShadow: '-4px 0 32px rgba(0,0,0,0.18)', overflow: 'hidden',
+            width: '520px', background: '#12141A', display: 'flex', flexDirection: 'column',
+            boxShadow: '-4px 0 48px rgba(0,0,0,0.6)', overflow: 'hidden',
           }}>
             {/* Drawer header */}
             <div style={{
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              padding: '16px 20px', background: '#0B3D3E', borderBottom: '1px solid rgba(255,255,255,0.1)',
+              padding: '16px 20px', background: 'rgba(10,11,15,0.9)', borderBottom: '1px solid #1E2030',
             }}>
-              <span style={{ color: '#F0EDE8', fontWeight: '700', fontSize: '14px', letterSpacing: '-0.2px' }}>
+              <span style={{ color: '#E8EBF3', fontWeight: '700', fontSize: '14px', letterSpacing: '-0.2px' }}>
                 &#x2691; Test Reports
               </span>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <button
                   onClick={loadReports}
-                  style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)', color: '#7DD8C8', borderRadius: '6px', padding: '5px 12px', cursor: 'pointer', fontSize: '11px', fontWeight: '600' }}
+                  style={{ background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)', color: '#818CF8', borderRadius: '6px', padding: '5px 12px', cursor: 'pointer', fontSize: '11px', fontWeight: '600' }}
                 >&#x21BB; Refresh</button>
                 <button
                   onClick={function () { setShowReports(false); }}
-                  style={{ background: 'transparent', border: 'none', color: '#F0EDE8', cursor: 'pointer', fontSize: '18px', lineHeight: 1, padding: '2px 4px', opacity: 0.7 }}
+                  style={{ background: 'transparent', border: 'none', color: '#E8EBF3', cursor: 'pointer', fontSize: '18px', lineHeight: 1, padding: '2px 4px', opacity: 0.7 }}
                 >&#x2715;</button>
               </div>
             </div>
             {/* Drawer body — scrollable */}
-            <div style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
+            <div style={{ flex: 1, overflowY: 'auto', padding: '20px', background: '#0E0F14' }}>
               <ReportViewer
                 pastReports={pastReports}
                 runReportDir={runReportDir}
@@ -851,7 +854,7 @@ function TestDataManager() {
               />
             </div>
             {/* Drawer footer — auto-refresh note */}
-            <div style={{ padding: '8px 20px', borderTop: '1px solid #E2DCD3', fontSize: '11px', color: '#A0ADB8', textAlign: 'center' }}>
+            <div style={{ padding: '8px 20px', borderTop: '1px solid #1E2030', fontSize: '11px', color: '#4A506A', textAlign: 'center', background: '#0A0B0F' }}>
               Auto-refreshes every 30s &mdash; last fetched on open
             </div>
           </div>
@@ -869,13 +872,13 @@ function TestDataManager() {
       }} colors={C} />
 
       {/* Control bar — Environment selector (visible on all steps) */}
-      <div data-tour="env-bar" style={{ background: '#FFFFFF', borderBottom: '1px solid #E2DCD3', padding: '10px 24px', display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+      <div data-tour="env-bar" style={{ background: '#12141A', borderBottom: '1px solid #1E2030', padding: '10px 24px', display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
         <label style={{ fontSize: '12px', color: C.muted, fontWeight: '500' }}>Environment</label>
         <select
           value={selectedEnv}
           onChange={function (e) { setSelectedEnv(e.target.value); setHasData(false); }}
           disabled={currentStep > 1 || hasData}
-          style={{ background: currentStep > 1 || hasData ? '#ECFDF5' : '#F2EDE6', border: '1px solid ' + (currentStep > 1 || hasData ? '#A7F3D0' : '#D4CCC2'), color: currentStep > 1 || hasData ? '#065F46' : '#1B2838', borderRadius: '6px', padding: '6px 12px', fontSize: '13px', cursor: currentStep > 1 || hasData ? 'not-allowed' : 'pointer', opacity: currentStep > 1 || hasData ? 0.9 : 1 }}
+          style={{ background: currentStep > 1 || hasData ? 'rgba(99,102,241,0.15)' : '#1A1D26', border: '1px solid ' + (currentStep > 1 || hasData ? 'rgba(99,102,241,0.4)' : '#353849'), color: currentStep > 1 || hasData ? '#818CF8' : '#E8EBF3', borderRadius: '6px', padding: '6px 12px', fontSize: '13px', cursor: currentStep > 1 || hasData ? 'not-allowed' : 'pointer', opacity: currentStep > 1 || hasData ? 0.9 : 1 }}
         >
           {!selectedEnv && <option value="">-- select environment --</option>}
           {envs.map(function (e) { return <option key={e} value={e}>{e}</option>; })}
@@ -885,7 +888,7 @@ function TestDataManager() {
           <button
             onClick={loadData}
             disabled={loading || !selectedEnv}
-            style={{ background: '#0E7C6B', color: 'white', padding: '7px 18px', borderRadius: '7px', fontWeight: '600', fontSize: '13px', border: 'none', cursor: loading || !selectedEnv ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', gap: '6px', opacity: loading || !selectedEnv ? 0.5 : 1, boxShadow: '0 2px 8px rgba(14,124,107,0.25)' }}
+            style={{ background: '#6366F1', color: 'white', padding: '7px 18px', borderRadius: '7px', fontWeight: '600', fontSize: '13px', border: 'none', cursor: loading || !selectedEnv ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', gap: '6px', opacity: loading || !selectedEnv ? 0.5 : 1, boxShadow: '0 2px 8px rgba(99,102,241,0.3)' }}
           >
             {loading && <Spinner dark={false} />}
             {loading ? 'Loading...' : 'Load Data'}
@@ -902,7 +905,7 @@ function TestDataManager() {
       </div>
 
       {/* Gradient divider */}
-      <div style={{ height: '2px', background: 'linear-gradient(90deg, transparent, #0E7C6B 15%, #2D6A8A 40%, #1B8FB0 65%, #2E8B57 85%, transparent)', opacity: 0.25 }} />
+      <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, #6366F1 20%, #06B6D4 50%, #6366F1 80%, transparent)', opacity: 0.4 }} />
 
       {/* Alert bar */}
       {alert && (
@@ -920,10 +923,10 @@ function TestDataManager() {
           <>
             {!hasData ? (
               <div style={{ textAlign: 'center', padding: '80px 20px', color: C.muted }}>
-                <div style={{ fontSize: '52px', marginBottom: '16px', opacity: 0.3 }}>&#x2B21;</div>
+                <div style={{ fontSize: '52px', marginBottom: '16px', opacity: 0.15 }}>&#x2B21;</div>
                 <p style={{ fontSize: '14px', lineHeight: '1.8', color: C.muted }}>
-                  Choose an <span style={{ color: C.accent }}>environment</span>,<br />
-                  then click <span style={{ color: C.accent, fontWeight: 600 }}>Load Data</span> to start editing.
+                  Choose an <span style={{ color: '#818CF8' }}>environment</span>,<br />
+                  then click <span style={{ color: '#6366F1', fontWeight: 600 }}>Load Data</span> to start editing.
                 </p>
               </div>
             ) : (
@@ -939,8 +942,8 @@ function TestDataManager() {
                         onClick={function () { setActiveTab(tab); }}
                         style={{
                           padding: '10px 22px', fontSize: '13px', fontWeight: isActive ? '600' : '400',
-                          color: isActive ? '#1B2838' : C.muted, background: 'none', border: 'none',
-                          borderBottom: isActive ? '2px solid #0E7C6B' : '2px solid transparent',
+                          color: isActive ? '#E8EBF3' : C.muted, background: 'none', border: 'none',
+                          borderBottom: isActive ? '2px solid #6366F1' : '2px solid transparent',
                           marginBottom: '-1px', cursor: 'pointer', transition: 'all 0.15s',
                         }}
                       >{label}</button>
@@ -1061,7 +1064,7 @@ function TestDataManager() {
       </main>
 
       {/* Footer / Navigation bar */}
-      <footer data-tour="footer" style={{ position: 'sticky', bottom: 0, height: '56px', background: '#0B3D3E', borderTop: '1px solid rgba(255,255,255,0.08)', backdropFilter: 'blur(16px)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 24px', gap: '16px', boxShadow: '0 -2px 12px rgba(11,61,62,0.1)' }}>
+      <footer data-tour="footer" style={{ position: 'sticky', bottom: 0, height: '56px', background: 'rgba(10,11,15,0.95)', borderTop: '1px solid #1E2030', backdropFilter: 'blur(20px)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 24px', gap: '16px', boxShadow: '0 -4px 24px rgba(0,0,0,0.4)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: 'rgba(255,255,255,0.6)' }}>
           <span>Step {currentStep} of {STEPS.length}</span>
           <span style={{ color: 'rgba(255,255,255,0.25)' }}>|</span>
@@ -1080,11 +1083,12 @@ function TestDataManager() {
               onClick={goNext}
               disabled={!canGoNext()}
               style={{
-                background: canGoNext() ? '#0E7C6B' : 'rgba(255,255,255,0.08)',
-                color: canGoNext() ? 'white' : 'rgba(255,255,255,0.3)',
+                background: canGoNext() ? 'linear-gradient(135deg, #6366F1, #4F46E5)' : 'rgba(255,255,255,0.06)',
+                color: canGoNext() ? 'white' : 'rgba(255,255,255,0.25)',
                 padding: '7px 18px', borderRadius: '7px', fontWeight: '600', fontSize: '13px', border: 'none',
                 cursor: canGoNext() ? 'pointer' : 'not-allowed',
-                boxShadow: canGoNext() ? '0 2px 8px rgba(14,124,107,0.3)' : 'none',
+                boxShadow: canGoNext() ? '0 2px 12px rgba(99,102,241,0.4)' : 'none',
+                transition: 'all 0.2s',
               }}
             >Next</button>
           )}
@@ -1164,7 +1168,15 @@ function TourOverlay({ onClose }) {
   var isFirst = step === 0;
   var isLast = step === TOUR_STEPS.length - 1;
 
-  var tooltipStyle = { position: 'fixed', zIndex: 10002, background: '#FFFFFF', border: '1px solid #0E7C6B', borderRadius: '12px', padding: '20px', maxWidth: '360px', width: '360px', boxShadow: '0 20px 60px rgba(14,124,107,0.2)' };
+  var tooltipStyle = {
+    position: 'fixed', zIndex: 10002,
+    background: 'rgba(18, 20, 26, 0.95)',
+    backdropFilter: 'blur(20px)',
+    border: '1px solid rgba(99,102,241,0.35)',
+    borderRadius: '14px', padding: '22px',
+    maxWidth: '360px', width: '360px',
+    boxShadow: '0 24px 64px rgba(0,0,0,0.7), 0 0 0 1px rgba(99,102,241,0.1), inset 0 1px 0 rgba(255,255,255,0.05)',
+  };
 
   if (current.position === 'center' || !spotRect) {
     tooltipStyle.top = '50%';
@@ -1179,44 +1191,92 @@ function TourOverlay({ onClose }) {
   }
 
   return React.createElement('div', { style: { position: 'fixed', inset: 0, zIndex: 10000 } },
+    // Dark overlay with cutout
     React.createElement('div', {
       onClick: onClose,
       style: {
-        position: 'fixed', inset: 0, background: 'rgba(27,40,56,0.55)', zIndex: 10001,
+        position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.75)', zIndex: 10001,
+        backdropFilter: 'blur(2px)',
         clipPath: spotRect
           ? 'polygon(0% 0%, 0% 100%, ' + spotRect.left + 'px 100%, ' + spotRect.left + 'px ' + spotRect.top + 'px, ' + (spotRect.left + spotRect.width) + 'px ' + spotRect.top + 'px, ' + (spotRect.left + spotRect.width) + 'px ' + (spotRect.top + spotRect.height) + 'px, ' + spotRect.left + 'px ' + (spotRect.top + spotRect.height) + 'px, ' + spotRect.left + 'px 100%, 100% 100%, 100% 0%)'
           : 'none',
       },
     }),
+    // Indigo highlight ring around target element
     spotRect && React.createElement('div', {
       style: {
         position: 'fixed', zIndex: 10001,
         top: spotRect.top + 'px', left: spotRect.left + 'px',
         width: spotRect.width + 'px', height: spotRect.height + 'px',
-        border: '2px solid #0E7C6B', borderRadius: '8px',
-        boxShadow: '0 0 20px rgba(14,124,107,0.35)',
+        border: '2px solid #6366F1', borderRadius: '8px',
+        boxShadow: '0 0 0 4px rgba(99,102,241,0.2), 0 0 24px rgba(99,102,241,0.4)',
         pointerEvents: 'none',
       },
     }),
+    // Tooltip card
     React.createElement('div', { style: tooltipStyle },
-      React.createElement('div', { style: { fontSize: '10px', color: '#0E7C6B', fontWeight: '700', letterSpacing: '0.1em', marginBottom: '8px', textTransform: 'uppercase' } },
+      // Step counter badge
+      React.createElement('div', {
+        style: {
+          fontSize: '9px', color: '#6366F1', fontWeight: '700',
+          letterSpacing: '0.15em', marginBottom: '10px',
+          textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '6px',
+        }
+      },
+        React.createElement('span', {
+          style: {
+            display: 'inline-block', width: '18px', height: '18px',
+            borderRadius: '50%', background: 'rgba(99,102,241,0.2)',
+            border: '1px solid rgba(99,102,241,0.4)',
+            textAlign: 'center', lineHeight: '18px', fontSize: '9px', color: '#818CF8',
+          }
+        }, step + 1),
         'Step ' + (step + 1) + ' of ' + TOUR_STEPS.length
       ),
-      React.createElement('h3', { style: { margin: '0 0 10px', fontSize: '16px', fontWeight: '700', color: '#1B2838' } }, current.title),
-      React.createElement('p', { style: { margin: '0 0 20px', fontSize: '13px', color: '#6B7B8D', lineHeight: '1.6', whiteSpace: 'pre-line' } }, current.body),
+      // Title
+      React.createElement('h3', {
+        style: {
+          margin: '0 0 10px', fontSize: '16px', fontWeight: '700',
+          color: '#E8EBF3', letterSpacing: '-0.3px',
+        }
+      }, current.title),
+      // Body
+      React.createElement('p', {
+        style: {
+          margin: '0 0 20px', fontSize: '13px', color: '#7B8299',
+          lineHeight: '1.65', whiteSpace: 'pre-line',
+        }
+      }, current.body),
+      // Divider
+      React.createElement('div', { style: { height: '1px', background: '#1E2030', marginBottom: '16px' } }),
+      // Actions
       React.createElement('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' } },
         React.createElement('button', {
           onClick: onClose,
-          style: { background: 'transparent', border: 'none', color: '#A0ADB8', fontSize: '12px', cursor: 'pointer', padding: '4px 8px' },
+          style: {
+            background: 'transparent', border: 'none', color: '#4A506A',
+            fontSize: '12px', cursor: 'pointer', padding: '4px 8px',
+            transition: 'color 0.15s',
+          },
         }, 'Skip tour'),
         React.createElement('div', { style: { display: 'flex', gap: '8px' } },
           !isFirst && React.createElement('button', {
             onClick: function () { setStep(step - 1); },
-            style: { background: '#F2EDE6', color: '#1B2838', border: 'none', borderRadius: '7px', padding: '7px 16px', fontSize: '12px', fontWeight: '600', cursor: 'pointer' },
+            style: {
+              background: '#1A1D26', color: '#E8EBF3', border: '1px solid #2A2D3A',
+              borderRadius: '7px', padding: '7px 16px', fontSize: '12px',
+              fontWeight: '600', cursor: 'pointer', transition: 'all 0.15s',
+            },
           }, '\u2190 Back'),
           React.createElement('button', {
             onClick: function () { if (isLast) onClose(); else setStep(step + 1); },
-            style: { background: '#0E7C6B', color: 'white', border: 'none', borderRadius: '7px', padding: '7px 16px', fontSize: '12px', fontWeight: '600', cursor: 'pointer' },
+            style: {
+              background: 'linear-gradient(135deg, #6366F1, #4F46E5)',
+              color: 'white', border: 'none', borderRadius: '7px',
+              padding: '7px 16px', fontSize: '12px', fontWeight: '600',
+              cursor: 'pointer', transition: 'all 0.2s',
+              boxShadow: '0 2px 12px rgba(99,102,241,0.4)',
+            },
           }, isLast ? 'Finish' : 'Next \u2192')
         )
       )
@@ -1224,33 +1284,35 @@ function TourOverlay({ onClose }) {
   );
 }
 
+
 // ============================================================================
 //  STEP INDICATOR
 // ============================================================================
 
 function StepIndicator({ steps, current, onStepClick, colors }) {
   return (
-    <div data-tour="steps" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '14px 24px', background: '#FFFFFF', borderBottom: '1px solid ' + colors.border, gap: '4px' }}>
+    <div data-tour="steps" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '14px 24px', background: '#0E0F14', borderBottom: '1px solid #1E2030', gap: '4px' }}>
       {steps.map(function (step, idx) {
         var isActive = step.num === current;
         var isCompleted = step.num < current;
-        var bgColor = isActive ? colors.accent : isCompleted ? '#0E7C6B' : '#F2EDE6';
+        var bgColor = isActive ? '#6366F1' : isCompleted ? '#4F46E5' : '#1A1D26';
         var textColor = isActive || isCompleted ? '#fff' : colors.muted;
+        var borderColor = isActive ? '#6366F1' : isCompleted ? '#4F46E5' : '#2A2D3A';
 
         return (
           <React.Fragment key={step.num}>
             {idx > 0 && (
-              <div style={{ width: '40px', height: '2px', background: isCompleted ? '#0E7C6B' : colors.border, margin: '0 4px', borderRadius: '1px' }} />
+              <div style={{ width: '40px', height: '1px', background: isCompleted ? '#4F46E5' : '#2A2D3A', margin: '0 4px' }} />
             )}
             <button
               onClick={function () { onStepClick(step.num); }}
               style={{
                 display: 'flex', alignItems: 'center', gap: '8px', padding: '6px 14px',
-                borderRadius: '999px', border: '1px solid ' + (isActive ? colors.accent : isCompleted ? '#0E7C6B' : colors.border),
+                borderRadius: '999px', border: '1px solid ' + borderColor,
                 background: bgColor, color: textColor,
                 cursor: isCompleted ? 'pointer' : 'default', fontSize: '12px', fontWeight: isActive ? '700' : '500',
                 transition: 'all 0.2s', whiteSpace: 'nowrap',
-                boxShadow: isActive ? '0 2px 8px rgba(14,124,107,0.2)' : 'none',
+                boxShadow: isActive ? '0 0 16px rgba(99,102,241,0.4)' : 'none',
               }}
             >
               <span>{isCompleted ? '\u2713' : step.icon}</span>
@@ -1342,8 +1404,8 @@ function FeatureSelector({ featureMode, setFeatureMode, allTags, tagSearch, setT
               onClick={function () { setFeatureMode(mode); }}
               style={{
                 padding: '8px 20px', borderRadius: '7px', fontSize: '13px', fontWeight: '600',
-                background: isActive ? colors.accent : '#F2EDE6', color: isActive ? 'white' : colors.muted,
-                border: '1px solid ' + (isActive ? colors.accent : '#D4CCC2'), cursor: 'pointer',
+                background: isActive ? '#6366F1' : '#1A1D26', color: isActive ? 'white' : colors.muted,
+                border: '1px solid ' + (isActive ? '#6366F1' : '#2A2D3A'), cursor: 'pointer', transition: 'all 0.2s',
               }}
             >{mode === 'tag' ? 'By Tag' : 'By File'}</button>
           );
@@ -1381,9 +1443,9 @@ function FeatureSelector({ featureMode, setFeatureMode, allTags, tagSearch, setT
                   onClick={function () { selectTag(t.tag); }}
                   style={{
                     padding: '6px 14px', borderRadius: '999px', fontSize: '12px', fontWeight: isSelected ? '700' : '500',
-                    background: isSelected ? colors.accent : '#F2EDE6',
+                    background: isSelected ? '#6366F1' : '#1A1D26',
                     color: isSelected ? 'white' : colors.muted,
-                    border: '1px solid ' + (isSelected ? colors.accent : '#D4CCC2'),
+                    border: '1px solid ' + (isSelected ? '#6366F1' : '#2A2D3A'),
                     cursor: 'pointer', transition: 'all 0.15s',
                   }}
                 >@{t.tag} <span style={{ opacity: 0.6, marginLeft: '4px' }}>({t.count})</span></button>
@@ -1793,7 +1855,7 @@ function RunConfig({ selectedEnv, featureMode, selectedTag, tagSpecs, selectedSp
 
 function SummaryCard({ label, value, accent, colors }) {
   return (
-    <div style={{ background: colors.surface, border: '1px solid ' + colors.border, borderRadius: '10px', padding: '14px', borderLeft: '3px solid ' + accent }}>
+    <div style={{ background: colors.surface, border: '1px solid ' + colors.border, borderRadius: '10px', padding: '14px', borderLeft: '2px solid ' + accent, boxShadow: '0 0 16px rgba(99,102,241,0.06)' }}>
       <div style={{ fontSize: '10px', color: colors.muted, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '6px' }}>{label}</div>
       <div style={{ fontSize: '16px', fontWeight: '700', color: accent }}>{value}</div>
     </div>
@@ -3338,29 +3400,27 @@ function DataCard({ card, section, getVal, setVal, selectedEnv, dbEnvs, getBusin
       onMouseEnter={function () { setHovered(true); }}
       onMouseLeave={function () { setHovered(false); }}
       style={{
-        backgroundColor: '#FFFFFF',
-        borderTop: '1px solid ' + (hovered ? '#D4CCC2' : '#E2DCD3'),
-        borderRight: '1px solid ' + (hovered ? '#D4CCC2' : '#E2DCD3'),
-        borderBottom: '1px solid ' + (hovered ? '#D4CCC2' : '#E2DCD3'),
-        borderLeft: '3px solid ' + card.accent,
+        backgroundColor: hovered ? '#16182280' : '#12141A',
+        border: '1px solid ' + (hovered ? '#6366F1' : '#2A2D3A'),
+        borderLeft: '2px solid ' + card.accent,
         borderRadius: '12px',
-        boxShadow: hovered ? '0 4px 16px rgba(27,40,56,0.1)' : '0 2px 8px rgba(27,40,56,0.05)',
+        boxShadow: hovered ? '0 0 24px rgba(99,102,241,0.15), 0 4px 20px rgba(0,0,0,0.4)' : '0 2px 12px rgba(0,0,0,0.3)',
         position: 'relative',
         overflow: 'visible',
-        transition: 'border-color 0.15s, box-shadow 0.2s',
+        transition: 'border-color 0.2s, box-shadow 0.2s, background 0.2s',
       }}
     >
       <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', borderRadius: '12px', pointerEvents: 'none' }}>
         <div style={{
           position: 'absolute', top: '-30px', right: '-30px', width: '140px', height: '140px',
-          background: 'radial-gradient(circle, ' + card.accent + '10 0%, transparent 65%)',
+          background: 'radial-gradient(circle, ' + card.accent + '18 0%, transparent 65%)',
           filter: 'blur(25px)',
         }} />
       </div>
 
-      <div style={{ padding: '12px 16px', display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #E2DCD3', position: 'relative' }}>
+      <div style={{ padding: '12px 16px', display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #1E2030', position: 'relative' }}>
         <span style={{ color: card.accent, fontSize: '14px' }}>&#x25C8;</span>
-        <span style={{ fontSize: '11px', fontWeight: '700', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#1B2838' }}>{card.title}</span>
+        <span style={{ fontSize: '11px', fontWeight: '700', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#E8EBF3' }}>{card.title}</span>
       </div>
 
       <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
@@ -3519,15 +3579,15 @@ function AutocompleteInput({ label, fieldKey, value, onChange, accent, selectedE
           onKeyDown={handleKeyDown}
           placeholder={hasDb ? (linkHint ? 'type to search (' + linkHint + ')...' : 'type to search...') : 'not set'}
           style={{
-            background: '#F7F3EE',
-            border: '1px solid ' + (focused ? accent : '#D4CCC2'),
-            color: isEmpty ? '#A0ADB8' : '#1B2838',
+            background: '#1A1D26',
+            border: '1px solid ' + (focused ? accent : '#353849'),
+            color: isEmpty ? '#4A506A' : '#E8EBF3',
             borderRadius: '6px',
             padding: '8px 10px',
             paddingRight: searching ? '32px' : '10px',
             fontSize: '13px',
             boxShadow: focused
-              ? '0 0 0 2px ' + accent + '20'
+              ? '0 0 0 2px ' + accent + '30'
               : 'none',
             outline: 'none',
             width: '100%',
@@ -3544,12 +3604,12 @@ function AutocompleteInput({ label, fieldKey, value, onChange, accent, selectedE
       {showDropdown && (
         <div style={{
           position: 'absolute', top: '100%', left: 0, right: 0, marginTop: '4px',
-          background: '#FFFFFF',
-          border: '1px solid ' + (isFallback ? 'rgba(212,150,74,0.5)' : isLinked ? accent + '60' : '#D4CCC2'),
-          borderRadius: '8px', boxShadow: '0 8px 24px rgba(27,40,56,0.12)', zIndex: 1000, maxHeight: '200px', overflowY: 'auto',
+          background: '#12141A',
+          border: '1px solid ' + (isFallback ? 'rgba(251,191,36,0.4)' : isLinked ? accent + '60' : '#2A2D3A'),
+          borderRadius: '8px', boxShadow: '0 8px 32px rgba(0,0,0,0.5)', zIndex: 1000, maxHeight: '200px', overflowY: 'auto',
         }}>
           {(isLinked || isFallback) && (
-            <div style={{ padding: '4px 12px', fontSize: '9px', color: isFallback ? '#92400E' : accent, opacity: 0.8, letterSpacing: '0.1em', textTransform: 'uppercase', borderBottom: '1px solid #E2DCD3', background: isFallback ? '#FFFBEB' : 'rgba(14,124,107,0.04)' }}>
+            <div style={{ padding: '4px 12px', fontSize: '9px', color: isFallback ? '#FBBF24' : accent, opacity: 0.8, letterSpacing: '0.1em', textTransform: 'uppercase', borderBottom: '1px solid #1E2030', background: isFallback ? 'rgba(251,191,36,0.08)' : 'rgba(99,102,241,0.06)' }}>
               {isFallback ? '\u26a0 no linked results \u2014 showing all' : '\u26d3 linked results'}
             </div>
           )}
@@ -3564,10 +3624,10 @@ function AutocompleteInput({ label, fieldKey, value, onChange, accent, selectedE
                 onMouseEnter={function () { setHighlightIdx(idx); }}
                 style={{
                   padding: '8px 12px', fontSize: '13px',
-                  color: isHighlighted ? '#1B2838' : '#6B7B8D',
-                  background: isHighlighted ? accent + '12' : 'transparent',
+                  color: isHighlighted ? '#E8EBF3' : '#7B8299',
+                  background: isHighlighted ? accent + '18' : 'transparent',
                   cursor: 'pointer',
-                  borderBottom: idx < results.length - 1 ? '1px solid #F2EDE6' : 'none',
+                  borderBottom: idx < results.length - 1 ? '1px solid #1E2030' : 'none',
                   transition: 'background 0.1s, color 0.1s',
                   display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px',
                 }}
@@ -3594,13 +3654,13 @@ function SaveButton({ saving, onClick }) {
       onMouseEnter={function () { setHovered(true); }}
       onMouseLeave={function () { setHovered(false); }}
       style={{
-        background: hovered ? '#0C9582' : '#0E7C6B',
+        background: hovered ? 'linear-gradient(135deg, #818CF8, #4F46E5)' : 'linear-gradient(135deg, #6366F1, #4338CA)',
         color: 'white', border: 'none', padding: '7px 18px', borderRadius: '7px',
         fontWeight: '600', fontSize: '13px',
         cursor: saving ? 'not-allowed' : 'pointer',
         display: 'flex', alignItems: 'center', gap: '6px',
-        opacity: saving ? 0.7 : 1, transition: 'background 0.15s',
-        boxShadow: '0 2px 8px rgba(14,124,107,0.2)',
+        opacity: saving ? 0.7 : 1, transition: 'background 0.2s, box-shadow 0.2s',
+        boxShadow: hovered ? '0 4px 16px rgba(99,102,241,0.5)' : '0 2px 8px rgba(99,102,241,0.3)',
       }}
     >
       {saving && <Spinner dark={false} />}
