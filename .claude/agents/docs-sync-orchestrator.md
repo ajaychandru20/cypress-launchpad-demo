@@ -175,5 +175,5 @@ After triggering agents, report back:
 
 # MAINTAINER
 
-**Maintained by**: Ajay Chandru (achandru@raisetech.io)  
+**Maintained by**: Ajay Chandru (achandru@saucedemo.io)  
 **Purpose**: Single entry point to keep all docs in sync after any coding session — triggers launchpad-monitor, launchpad-docs-writer, and claude-md-syncer based on what changed.

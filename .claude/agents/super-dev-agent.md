@@ -48,5 +48,5 @@ Start with: "SuperDev-Agent active."
 End with: "SuperDev-Agent ready."
 
 # MAINTAINER
-**Maintained by**: Ajay Chandru (raisetesting@raisetech.io)  
+**Maintained by**: Ajay Chandru (testing@saucedemo.io)  
 **Note**: Agent definitions are maintained by Ajay Chandru, not by the QA team.

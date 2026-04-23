@@ -284,7 +284,7 @@ Every file you touch gets its `Last Updated` header stamped with today's date an
 
 # MAINTAINER
 
-**Maintained by**: Ajay Chandru (achandru@raisetech.io)  
+**Maintained by**: Ajay Chandru (achandru@saucedemo.io)  
 **Location**: `cypress-launchpad/.claude/agents/launchpad-docs-writer.md`  
-**Triggered by**: `docs-sync-orchestrator` on "sync docs" when raise-launchpad files change  
+**Triggered by**: `docs-sync-orchestrator` on "sync docs" when cypress-launchpad files change  
 **Owns**: `cypress-launchpad/docs/FLOWCHART.md`, `cypress-launchpad/docs/LAUNCHPAD_KT.md`, `cypress-launchpad/docs/POC.md`

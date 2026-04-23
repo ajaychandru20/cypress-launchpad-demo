@@ -155,5 +155,5 @@ Example:
 
 # MAINTAINER
 
-**Maintained by**: Ajay Chandru (achandru@raisetech.io)  
+**Maintained by**: Ajay Chandru (achandru@saucedemo.io)  
 **Purpose**: Automate documentation sync so code and docs stay in perfect alignment

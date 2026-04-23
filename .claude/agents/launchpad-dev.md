@@ -129,5 +129,5 @@ When faced with a choice:
 
 # MAINTAINER
 
-**Maintained by**: Ajay Chandru (achandru@raisetech.io)  
+**Maintained by**: Ajay Chandru (achandru@saucedemo.io)  
 **Backup**: Use this agent for any launchpad code changes to ensure FANG-grade quality

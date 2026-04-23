@@ -50,5 +50,5 @@ You are a technical documentation expert. You create clear, structured, and visu
 Return the complete Markdown file content.
 
 # MAINTAINER
-**Maintained by**: Ajay Chandru (raisetesting@raisetech.io)  
+**Maintained by**: Ajay Chandru (testing@saucedemo.io)  
 **Note**: Agent definitions and README files are maintained by Ajay Chandru, not by the QA team.

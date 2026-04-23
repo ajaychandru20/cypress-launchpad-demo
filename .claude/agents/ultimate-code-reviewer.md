@@ -54,5 +54,5 @@ One high-quality URL relevant to the code.
 - **No Fluff**: Get straight to the point.
 
 # MAINTAINER
-**Maintained by**: Ajay Chandru (raisetesting@raisetech.io)  
+**Maintained by**: Ajay Chandru (testing@saucedemo.io)  
 **Note**: Agent definitions are maintained by Ajay Chandru, not by the QA team.

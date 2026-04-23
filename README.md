@@ -20,6 +20,60 @@ This project is designed to test [SauceDemo](https://www.saucedemo.com) and demo
 
 ---
 
+## 🏗️ Architecture
+
+```mermaid
+graph TD
+    DEV[QA Engineer / Developer]
+
+    DEV -->|Browser| LP[Cypress Launchpad UI<br/>http://localhost:4500]
+    DEV -->|Terminal| CLI[CLI: npm run / test.runner.js]
+
+    LP --> SRV[Node.js Server<br/>cypress-launchpad/app.js]
+
+    SRV -->|Run Mode: Docker| DR[Docker Runner<br/>docker-runner.js<br/>One container per spec]
+    SRV -->|Run Mode: Local| LC[Local Cypress<br/>System browser]
+
+    CLI --> LC
+
+    DR --> IMG[Docker Image<br/>platform-cypress-base<br/>+ test files]
+    IMG --> CT1[Container: Spec 1]
+    IMG --> CT2[Container: Spec 2]
+    IMG --> CTN[Container: Spec N]
+
+    LC --> FW[Core Test Framework<br/>cypress/]
+    CT1 --> FW
+    CT2 --> FW
+    CTN --> FW
+
+    FW --> FF[Feature Files<br/>474+ .feature files<br/>5 business domains]
+    FW --> PO[Page Objects<br/>35+ classes]
+    FW --> CC[Custom Commands<br/>59 commands]
+    FW --> GQ[GraphQL Queries<br/>100+ DB queries]
+
+    PO --> APP[(Application Under Test<br/>SauceDemo Platform<br/>Chrome / Firefox / Edge)]
+    CC --> APP
+
+    GQ --> HAS[Hasura GraphQL<br/>API_URL]
+    HAS --> DB[(PostgreSQL<br/>AWS RDS<br/>Read-only replica)]
+
+    FF --> RPT[Cucumber JSON<br/>Reports]
+    RPT --> HTML[HTML Report<br/>multiple-cucumber-html-reporter]
+
+    SRV -->|Server-Sent Events| LP
+
+    style LP fill:#2d6a4f,color:#fff
+    style SRV fill:#2d6a4f,color:#fff
+    style DR fill:#1d3557,color:#fff
+    style FW fill:#457b9d,color:#fff
+    style DB fill:#e63946,color:#fff
+    style HAS fill:#e63946,color:#fff
+    style HTML fill:#f4a261,color:#000
+    style APP fill:#264653,color:#fff
+```
+
+---
+
 ## 🛠️ Tech Stack
 
 - **Cypress**: Core test runner.

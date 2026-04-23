@@ -718,7 +718,19 @@ http.createServer(function (req, res) {
       var cacheKey = 'specs:' + tag;
       var cachedSpecs = cacheGet(cacheKey);
       if (cachedSpecs) return sendJson(res, { ok: true, specs: cachedSpecs.specs, scenarioCount: cachedSpecs.scenarioCount, cached: true });
-      var result = getSpecsByTag(tag);
+      var specsArray = getSpecsByTag(tag);
+      
+      // Calculate approximate scenario count by reading the files
+      var scenarioCount = 0;
+      specsArray.forEach(function(specPath) {
+        try {
+          var content = fs.readFileSync(specPath, 'utf8');
+          var matches = content.match(/Scenario:|Scenario Outline:/g);
+          if (matches) scenarioCount += matches.length;
+        } catch (e) {}
+      });
+
+      var result = { specs: specsArray, scenarioCount: scenarioCount };
       cacheSet(cacheKey, result);
       return sendJson(res, { ok: true, specs: result.specs, scenarioCount: result.scenarioCount });
     } catch (e) {
