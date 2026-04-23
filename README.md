@@ -164,4 +164,12 @@ If Docker mode fails to start:
 ---
 
 ## 📝 License
-This project is for demonstration purposes. Developed for the Cypress Launchpad ecosystem.
+
+This project is licensed under a **Custom Non-Commercial Dual License**. 
+
+* **Free Use**: You may use this project completely free of charge for personal, academic, and non-commercial open-source projects.
+* **Commercial Use**: Any commercial use (including internal QA testing at a business, enterprise usage, or SaaS) is **strictly prohibited** without purchasing a commercial license. 
+
+To purchase a commercial license, please contact: `testing@saucedemo.com`
+
+See the [LICENSE](LICENSE) file for full details.
