@@ -1,0 +1,47 @@
+{
+  "name": "cypress-launchpad-demo",
+  "version": "1.0.0",
+  "description": "Cypress Launchpad — parallel test execution with Docker. Demo project for https://www.saucedemo.com",
+  "dependencies": {
+    "@faker-js/faker": "^8.3.1",
+    "csv-parser": "^3.0.0",
+    "cypress-cucumber-preprocessor": "^4.3.1",
+    "cypress-dotenv": "^3.0.1",
+    "cypress-multi-reporters": "^2.0.5",
+    "date-fns": "^3.6.0",
+    "dayjs": "^1.11.13",
+    "dotenv": "^16.3.1",
+    "glob": "^10.3.10",
+    "multiple-cucumber-html-reporter": "^3.8.0",
+    "systeminformation": "^5.25.11"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "cypress": "^15.2.0",
+    "cypress-real-events": "^1.15.0",
+    "gherkin": "^5.1.0"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": false,
+    "stepDefinitions": "cypress/support/step_definitions",
+    "cucumberJson": {
+      "generate": true,
+      "outputFolder": "cypress/cucumber-json",
+      "filePrefix": "",
+      "fileSuffix": ".cucumber"
+    }
+  },
+  "scripts": {
+    "launch": "node cypress-launchpad/testdata-manager.js",
+    "report": "node cucumberReport.js",
+    "set-demo1-env": "node env.js demo1",
+    "set-demo2-env": "node env.js demo2",
+    "set-demo3-env": "node env.js demo3",
+    "set-local-env": "node env.js local",
+    "demo1": "npm run set-demo1-env && npx cypress open --e2e",
+    "demo2": "npm run set-demo2-env && npx cypress open --e2e",
+    "demo3": "npm run set-demo3-env && npx cypress open --e2e",
+    "local": "npm run set-local-env && npx cypress open --e2e",
+    "cy:run": "npm run set-demo1-env && npx cypress run --headless --browser chrome"
+  }
+}

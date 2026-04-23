@@ -1,0 +1,7 @@
+{
+  "reporterEnabled": "cypress-multi-reporters",
+  "cypressMultiReportersReporterOptions": {
+    "reporterEnabled": "spec",
+    "specReporterOptions": {}
+  }
+}

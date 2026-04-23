@@ -1,0 +1,23 @@
+{
+  "users": {
+    "adminUser": "admin@demo.com",
+    "standardUser": "standard_user",
+    "guestUser": "guest@demo.com",
+    "lockedUser": "locked_out_user"
+  },
+  "products": {
+    "featuredProduct": "Sauce Labs Backpack",
+    "saleProduct": "Sauce Labs Fleece Jacket",
+    "newArrival": "Sauce Labs Bike Light",
+    "budgetItem": "Sauce Labs Onesie"
+  },
+  "checkout": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "postalCode": "10001"
+  },
+  "config": {
+    "baseUrl": "https://www.saucedemo.com",
+    "apiKey": "demo-api-key-001"
+  }
+}

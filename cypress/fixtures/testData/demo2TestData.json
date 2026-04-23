@@ -1,0 +1,23 @@
+{
+  "users": {
+    "adminUser": "admin@demo-stage2.com",
+    "standardUser": "visual_user",
+    "guestUser": "guest@demo-stage2.com",
+    "lockedUser": "locked_out_user"
+  },
+  "products": {
+    "featuredProduct": "Sauce Labs Bolt T-Shirt",
+    "saleProduct": "Test.allTheThings() T-Shirt (Red)",
+    "newArrival": "Sauce Labs Backpack",
+    "budgetItem": "Sauce Labs Bike Light"
+  },
+  "checkout": {
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "postalCode": "90210"
+  },
+  "config": {
+    "baseUrl": "https://www.saucedemo.com",
+    "apiKey": "demo-api-key-002"
+  }
+}

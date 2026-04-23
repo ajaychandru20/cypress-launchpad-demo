@@ -1,0 +1,19 @@
+FROM cypress/browsers:latest
+
+WORKDIR /app
+
+# Install Microsoft Edge (Chrome and Firefox already in cypress/browsers)
+RUN apt-get -o Acquire::Retry=3 update \
+    && apt-get install -y --no-install-recommends curl gnupg \
+    && ( \
+         curl -fsSL https://packages.microsoft.com/keys/microsoft.asc \
+           | gpg --dearmor -o /usr/share/keyrings/microsoft-archive-keyring.gpg \
+         && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/edge stable main" \
+           | tee /etc/apt/sources.list.d/microsoft-edge.list \
+         && apt-get -o Acquire::Retry=3 update \
+         && apt-get install -y --no-install-recommends microsoft-edge-stable \
+       ) || echo "[warn] Microsoft Edge install failed — Chrome/Firefox still work" \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY package.json package-lock.json* ./
+RUN npm ci
